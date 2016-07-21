@@ -4,7 +4,7 @@ applications:
   instances: 1
   domain: mybluemix.net
   name: NW-NEST
-  host: P0-NEST
+  host: NW-NEST
   disk_quota: 1024M
   services:
   - nw-nest-db
