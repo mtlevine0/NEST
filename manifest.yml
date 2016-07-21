@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: mybluemix.net
+  name: NEST
+  host: P0-NEST
+  disk_quota: 1024M
+  services:
+  - NEST-DB
+  - NEST-OS
+  buildpack: python_buildpack
