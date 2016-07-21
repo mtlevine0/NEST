@@ -3,10 +3,11 @@ applications:
   memory: 128M
   instances: 1
   domain: mybluemix.net
-  name: NEST
-  host: P0-NEST
+  name: NW-NEST
+  host: NW-NEST
   disk_quota: 1024M
   services:
-  - NEST-DB
-  - NEST-OS
+  - nw-nest-db
+  - nw-nest-os
+  - nw-nest-scheduler
   buildpack: python_buildpack
