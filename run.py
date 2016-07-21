@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from app import views, upload, delete, access
+from app import upload, delete, access
 
 app = Flask(__name__, static_url_path='/static')
 
