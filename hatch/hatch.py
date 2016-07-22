@@ -40,13 +40,14 @@ def docTypeCheck(document):
 def deleteDBDoc(document,FileRemovalStatus):
     if(FileRemovalStatus == True):
         try:
-            db.delete(doc)
+            db.delete(document)
             print "We have successfully deleted document with ID: %s" % id
         except:
             print "Something went wrong trying to delete the DB document associated with document ID: %s" % id
     else:
         return
-        
+
+#Delete the uploaded file from OS        
 def deleteOSFile(fileName):
     try:
         osConnection.delete_object(oscontainer_name, fileName)

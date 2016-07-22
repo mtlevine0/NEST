@@ -1,9 +1,13 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from app import upload, delete, access
 
 app = Flask(__name__, static_url_path='/static')
 app.config['WTF_CSRF_ENABLED'] = False
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 port = os.getenv('PORT', '5000')
 
