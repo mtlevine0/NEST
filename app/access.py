@@ -43,7 +43,7 @@ def fetch(uid):
     return result
     
     
-@access_api.route('/<uid>/<auth>', methods=['POST'])
+@access_api.route('/<uid>/<auth>', methods=['GET'])
 def authorization(uid, auth):
     
     data = {}

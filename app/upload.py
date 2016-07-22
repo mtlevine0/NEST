@@ -20,6 +20,7 @@ def publish():
         doc = json.loads(body)
         try:
             database.db.create(doc)
+            print doc
         except:
             statusCode = 500
         statusCode = 200
