@@ -34,17 +34,16 @@ def send_email(user, pwd, recipient, subject, body):
     
 #Load Body Function to handle loading in backend DB data
 def loadBody(requestData):
-    print "RequestData: %s" % requestData
 
     #Add/Alter Data
     createdDate = datetime.utcnow()
     data = json.loads(requestData)
     
-    data['expiration_date'] = calculateExpirationTime(createdDate, data['expiration_date'])
+    data['expiration_date'] = calculateExpirationTime(createdDate, data['expiration_time'])
     data['type'] = "text"
     data['filename'] = ""
     data['created_date'] = str(createdDate)
-    data['admin_password'] = uuid.uuid4()
+    data['admin_password'] = str(uuid.uuid4())
     
     return data
     
@@ -73,8 +72,11 @@ def publish():
     id = ''
     if contentLength < properties.maxFileSize:
         #Return a 200 OK, Make a db entry
+        temp=json.dumps(body)
+        doc=json.loads(temp)
+
         try:
-            id = database.db.create(body)
+            id = database.db.create(doc)
             print "ID: %s" % id
         except:
             print "DB push exception"
@@ -87,6 +89,5 @@ def publish():
     else:
         #Return a 500 Internal Error, move on
         statusCode = 500
-    # dataDict = json.loads(data)
-    print body
-    return Response('{"id":"'+id+'"}', mimetype='application/json', status=statusCode)
+
+    return Response({"id":id}, mimetype='application/json', status=statusCode)
