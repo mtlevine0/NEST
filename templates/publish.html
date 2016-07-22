@@ -48,14 +48,14 @@
     
     $('#submit').on('click', function() {
          var data = {
-             type: $("#type"),
+             type: $("#type").val(),
              text: $("#text").val(),
              email: $("#email").val(),
              filename: $("#filename").val(),
-             created_date: $("#created_date"),
-             expiration_date: $("#expiration_date"),
-             self_destruct_count: $("#self_destruct_count"),
-             password: $("password")
+             created_date: $("#created_date").val(),
+             expiration_date: $("#expiration_date").val(),
+             self_destruct_count: $("#self_destruct_count").val(),
+             password: $("password").val()
          };
          
          console.log(data);
