@@ -4,9 +4,11 @@
   </head>
     <body>
       <h1>Authorization</h1>
-      <form>
-          Password:<br>
-          <input type="password" name="password"><br>
+      <form action="" method="post" name="auth">
+          <p>
+              Please enter your password:<br>
+              {{ form.pass_input(size=80) }}<br>
+          </p>
       </form>
     </body>
 </html>

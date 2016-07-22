@@ -3,6 +3,7 @@ from flask import Flask
 from app import upload, delete, access
 
 app = Flask(__name__, static_url_path='/static')
+app.config['WTF_CSRF_ENABLED'] = False
 
 port = os.getenv('PORT', '5000')
 

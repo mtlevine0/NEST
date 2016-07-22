@@ -1,5 +1,6 @@
 from flask import jsonify, Blueprint, render_template
 import database
+from .forms import AuthForm
 
 access_api = Blueprint('access_api', __name__)
 
@@ -14,7 +15,8 @@ def fetch(uid):
         
         # If password protected 
         if doc['password'] != '':
-            result = render_template('auth.html')
+            form = AuthForm()
+            result = render_template('auth.html', form=form)
             
         else:
             #TODO: Get file
@@ -31,7 +33,7 @@ def fetch(uid):
     
     
 @access_api.route('/<uid>', methods=['POST'])
-def authorization(uid, password):
+def authorization(password, uid):
     
     doc = getDBEntry(uid)
     
