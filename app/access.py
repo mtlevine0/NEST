@@ -60,11 +60,12 @@ def incrementSD(doc):
     sdCounter = int(doc['self_destruct_count'])
     sdCounter -= 1
     
-    if sdCounter <= 0:
+    if sdCounter < 0:
         deleteDBEntry(doc)
     else: 
         doc['self_destruct_count'] = unicode(sdCounter)
         updateDBEntry(doc)
+
     
 
 def updateDBEntry(doc):
