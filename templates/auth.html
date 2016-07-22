@@ -4,11 +4,10 @@
   </head>
     <body>
       <h1>Authorization</h1>
-      <form action="" method="post" name="auth">
-          <p>
-              Enter your password:<br>
-              {{ form.pass_input() }}<br>
-          </p>
+      <form action="/{{ uid }}" method="post" name="auth">
+            <input id="pass_input" name="pass_input" type="password" value="">
+            <input type="hidden" id="uid" name="uid" value="{{ uid }}">
+            <input type="submit" />
       </form>
     </body>
 </html>
