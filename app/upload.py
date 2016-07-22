@@ -1,4 +1,6 @@
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, request, Response
+import database
+import properties
 
 upload_api = Blueprint('upload_api', __name__)
 
@@ -8,4 +10,11 @@ def upload():
 
 @upload_api.route('/publish', methods=['POST'])
 def publish():
-    return 'publish page'
+    content_length = request.headers.get('content-length')
+    body = request.data
+    
+    
+    
+    # dataDict = json.loads(data)
+    print body
+    return Response(body, mimetype='application/json')
