@@ -1,11 +1,12 @@
 from flask import jsonify, Blueprint
-import couchdb
+import database
+
 
 access_api = Blueprint('access_api', __name__)
 
 @access_api.route('/<uid>', methods=['GET'])
 def fetch(uid):
-    
+
     #TODO: if uid in db
     
         #TODO: pull back data
@@ -28,5 +29,9 @@ def fetch(uid):
 @access_api.route('/<uid>/<auth>', methods=['POST'])
 def authorization(uid, auth):
     
+    data = {}
+    for i, id in enumerate(database.db):
+        print i, id
+        data[i] = id
+    return jsonify(data)
 
-    return 'authorization page'

@@ -11,4 +11,4 @@ if __name__ == "__main__":
     app.register_blueprint(delete.delete_api)
     app.register_blueprint(access.access_api)
 
-    app.run(host='0.0.0.0', port=int(port))
+    app.run(host='0.0.0.0', port=int(port), threaded=True, debug=True)
