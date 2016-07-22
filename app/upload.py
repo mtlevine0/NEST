@@ -40,6 +40,7 @@ def publish():
     #validate json
     email = json.loads(body)['email']
     print contentLength, properties.maxFileSize
+    id = ''
     if contentLength < properties.maxFileSize:
         #Return a 200 OK, Make a db entry
         doc = json.loads(body)
@@ -58,4 +59,4 @@ def publish():
         statusCode = 500
     # dataDict = json.loads(data)
     print body
-    return Response({"id":id}, mimetype='application/json', status=statusCode)
+    return Response('{"id":"'+id+'"}', mimetype='application/json', status=statusCode)
