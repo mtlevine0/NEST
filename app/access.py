@@ -15,11 +15,11 @@ def fetch(uid):
         # If password protected 
         if doc['password'] != '':
             #could set template=autorization_page instead of returning
-            result = 'authorization page'
+            return 'authorization page'
         
         # If it's a file
-        if doc['type'] == 'file':
-            result = 'file'
+        #if doc['type'] == 'file':
+            #result = 'file'
             
             #TODO: Get file
     
