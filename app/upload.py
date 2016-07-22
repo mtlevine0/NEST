@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint, request, Response
+from flask import jsonify, Blueprint, request, Response, render_template
 import database
 import properties
 import json
@@ -31,7 +31,7 @@ def send_email(user, pwd, recipient, subject, body):
 
 @upload_api.route('/', methods=['GET'])
 def upload():
-    return 'upload page'
+    return render_template('publish.html')
 
 @upload_api.route('/publish', methods=['POST'])
 def publish():
