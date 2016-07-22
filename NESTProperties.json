@@ -2,5 +2,12 @@
     "dbName": "nw-nest-db-test",
     "dbUser": "6bb93b4a-b32d-4fa9-ac34-81144d9bbb69-bluemix",
     "dbPassword": "2d3848dd07d0ec8a0ae80672213d653b132861b4ffe5941fcf31cb50f0234a29",
-    "maxFileSize": 600
+    "maxFileSize": 600,
+    "osauth_url": "https://identity.open.softlayer.com/v3",
+    "osauth_version": "3",
+    "ospassword": "av1pbg5&O2[}qS[&",
+    "osproject_id": "16828c0132f54ec39ccedb592ecbe00f",
+    "osuser_id": "4063b6a8922b423094287be8419c8d70",
+    "osregion_name": "dallas",
+    "oscontainer_name": "thenest-test"
 }
