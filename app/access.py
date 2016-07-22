@@ -14,15 +14,14 @@ def fetch(uid):
         
         # If password protected 
         if doc['password'] != '':
-            form = AuthForm()
-            result = render_template('auth.html', form=form, uid=uid)
+            #TODO: Get file
+            # increment the self destruct time / handle deleting entry if 0
+            result = render_template('access.html', doc=doc)
+            incrementSD(doc)
             
         else:
-            #TODO: Get file
-    
-            # increment the self destruct time / handle deleting entry if 0
-            incrementSD(doc)
-            result = render_template('access.html', doc=doc)
+            form = AuthForm()
+            result = render_template('auth.html', form=form, uid=uid)
     
     else: 
         result = render_template('404.html')
@@ -56,14 +55,16 @@ def getDBEntry(uid):
 
 
 def incrementSD(doc):
-    sdCounter = int(doc['self_destruct_count'])
-    sdCounter -= 1
     
-    if sdCounter < 0:
-        deleteDBEntry(doc)
-    else: 
-        doc['self_destruct_count'] = unicode(sdCounter)
-        updateDBEntry(doc)
+    if doc['self_destruct_count'] != '':
+        sdCounter = int(doc['self_destruct_count'])
+        sdCounter -= 1
+    
+        if sdCounter < 0:
+            deleteDBEntry(doc)
+        else: 
+            doc['self_destruct_count'] = unicode(sdCounter)
+            updateDBEntry(doc)
 
     
 
