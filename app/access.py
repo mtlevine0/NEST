@@ -14,27 +14,14 @@ def fetch(uid):
         
         # If password protected 
         if doc['password'] != '':
-            #could set template=autorization_page instead of returning
-            return render_template('auth.html')
-        
-        # If it's a file
-        #if doc['type'] == 'file':
-            #result = 'file'
+            result = render_template('auth.html')
             
+        else:
             #TODO: Get file
     
-    #TODO: decrement self-destruct counter 
-    
-        sdCounter = int(doc['self_destruct_count'])
-        sdCounter -= 1
-    
-        if sdCounter <= 0:
-            deleteDBEntry(doc)
-        else: 
-            doc['self_destruct_count'] = unicode(sdCounter)
-            updateDBEntry(doc)
-        
-        result = jsonify(doc)
+            # increment the self destruct time / handle deleting entry if 0
+            incrementSD(doc)
+            result = jsonify(doc)
     
     else: 
         result = render_template('404.html')
@@ -44,13 +31,18 @@ def fetch(uid):
     
     
 @access_api.route('/<uid>', methods=['POST'])
-def authorization(uid):
+def authorization(uid, password):
     
-    data = {}
-    for i, id in enumerate(database.db):
-        print i, id
-        data[i] = id
-    return jsonify(data)
+    doc = getDBEntry(uid)
+    
+    if doc['password'] != password: 
+        #TODO: add error parameter
+        result = render_template('auth.html')
+    else:
+        incrementSD(doc)
+        result = render_template('access.html')
+    
+    return result
 
 
 def getDBEntry(uid):
@@ -61,9 +53,23 @@ def getDBEntry(uid):
     return doc
 
 
+def incrementSD(doc):
+    sdCounter = int(doc['self_destruct_count'])
+    sdCounter -= 1
+    
+    if sdCounter <= 0:
+        deleteDBEntry(doc)
+    else: 
+        doc['self_destruct_count'] = unicode(sdCounter)
+        updateDBEntry(doc)
+    
+
 def updateDBEntry(doc):
     return database.db.save(doc)
     
     
 def deleteDBEntry(doc):
     return database.db.delete(doc)
+    
+
+    
