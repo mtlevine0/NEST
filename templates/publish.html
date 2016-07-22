@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        input[type="text"] {
+            height: 100px;
+            width: 800px;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,11 +18,7 @@
 <!--</form>-->
 
     <form id="myform">
-        Type: <input id="type" name="type" value="text" /><br>
-        Text: <input id="text" name="text" value="enter text here" /><br>
-        FileName: <input id="filename" name="filename" value="" /><br>
-        Created Date <input id="created_date" name="created_date" /><br>
-        Expiration Date<input id="expiration_date" name="expiration_date" /><br>
+        Text: <input type="text" id="text" name="text" value="enter text here" class="textboxclass"/><br>
         Email: <input id="email" name="email" /><br>
         Self Destruct Count<input id="self_destruct_count" name="self_destruct_count" /><br>
         Password <input id="password" name="password" type="password"><br>
@@ -48,14 +50,10 @@
     
     $('#submit').on('click', function() {
          var data = {
-             type: $("#type"),
              text: $("#text").val(),
              email: $("#email").val(),
-             filename: $("#filename").val(),
-             created_date: $("#created_date"),
-             expiration_date: $("#expiration_date"),
-             self_destruct_count: $("#self_destruct_count"),
-             password: $("password")
+             self_destruct_count: $("#self_destruct_count").val(),
+             password: $("#password").val()
          };
          
          console.log(data);
@@ -66,11 +64,11 @@
             data: JSON.stringify(data),
             dataType: "json",
             contentType: "application/json",
-            complete: function(){
+            success: function(){
                 
             }
         });
-    });   
+        });   
 </script>
 </body>
 </html>

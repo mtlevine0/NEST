@@ -3,6 +3,9 @@ import database
 import properties
 import json
 import smtplib
+from datetime import datetime
+from datetime import timedelta
+import uuid
 
 upload_api = Blueprint('upload_api', __name__)
 
@@ -28,6 +31,31 @@ def send_email(user, pwd, recipient, subject, body):
     # print 'successfully sent the mail'
     # except:
     #     print "failed to send mail"
+    
+#Load Body Function to handle loading in backend DB data
+def loadBody(requestData):
+    print "RequestData: %s" % requestData
+
+    #Add/Alter Data
+    createdDate = datetime.utcnow()
+    data = json.loads(requestData)
+    
+    data['expiration_date'] = calculateExpirationTime(createdDate, data['expiration_date'])
+    data['type'] = "text"
+    data['filename'] = ""
+    data['created_date'] = str(createdDate)
+    data['admin_password'] = uuid.uuid4()
+    
+    return data
+    
+# Calculate the expiration Time
+def calculateExpirationTime(creationTime,minutesAdd):
+    try:
+        expirationTime = creationTime + timedelta(minutes=minutesAdd)
+    except:
+        expirationTime = creationTime + timedelta(minutes=15)
+    
+    return str(expirationTime)
 
 @upload_api.route('/', methods=['GET'])
 def upload():
@@ -36,17 +64,19 @@ def upload():
 @upload_api.route('/publish', methods=['POST'])
 def publish():
     contentLength = int(request.headers.get('content-length'))
-    body = request.data
+    body = loadBody(request.data)
+    
     #validate json
-    email = json.loads(body)['email']
+    email = body['email']
+    print email
     print contentLength, properties.maxFileSize
     if contentLength < properties.maxFileSize:
         #Return a 200 OK, Make a db entry
-        doc = json.loads(body)
         try:
-            id = database.db.create(doc)
-            print id
+            id = database.db.create(body)
+            print "ID: %s" % id
         except:
+            print "DB push exception"
             statusCode = 500
         statusCode = 200
         # send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
@@ -58,4 +88,4 @@ def publish():
         statusCode = 500
     # dataDict = json.loads(data)
     print body
-    return Response(body, mimetype='application/json', status=statusCode)
+    return Response({"id":id}, mimetype='application/json', status=statusCode)

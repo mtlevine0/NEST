@@ -9,7 +9,6 @@ def fetch(uid):
 
     # Get entry from db
     doc = getDBEntry(uid)
-    
     # If there, do stuff
     if doc != 0:
         
@@ -40,7 +39,7 @@ def authorization(uid):
     
     if doc['password'] != password: 
         #TODO: add error parameter
-        result = render_template('auth.html')
+        result = render_template('auth.html', uid="test")
     else:
         result = render_template('access.html', doc=doc)
         incrementSD(doc)
