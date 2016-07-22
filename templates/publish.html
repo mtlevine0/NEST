@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        input[type="text"] {
-            height: 100px;
-            width: 800px;
-        }
-    </style>
 </head>
 <body>
 
@@ -48,29 +42,34 @@
     //     });
     // });
     
-    
-    $('#submit').on('click', function() {
-         var data = {
-             text: $("#text").val(),
-             email: $("#email").val(),
-             expiration_time: $("#expiration_time_min").val(),
-             self_destruct_count: $("#self_destruct_count").val(),
-             password: $("#password").val()
-         };
-         
-         console.log(data);
+    $(document).ready(function(){
+        console.log("ready");
+        $('#submit').on('click', function() {
+             var data = {
+                 text: $("#text").val(),
+                 email: $("#email").val(),
+                 expiration_time: $("#expiration_time_min").val(),
+                 self_destruct_count: $("#self_destruct_count").val(),
+                 password: $("#password").val()
+             };
+             
+            $.ajax({
+                url: "/publish",
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType: "json",
+                contentType: "application/json",
+      
+            }).done(function(rdata){
+                console.log(rdata.id);
+                console.log("test");
+                $(location).attr('href', 'https://nw-hackathon-mtlevine0.c9users.io/' + rdata.id)
 
-        $.ajax({
-            url: "/publish",
-            type: "POST",
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType: "application/json",
-            success: function(){
-                
-            }
+            }).fail(function(error){
+              console.log("test fail");  
+            });
         });
-        });   
+    });
 </script>
 </body>
 </html>

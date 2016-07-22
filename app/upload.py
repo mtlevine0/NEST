@@ -69,6 +69,7 @@ def publish():
     email = body['email']
     print email
     print contentLength, properties.maxFileSize
+    id = ''
     if contentLength < properties.maxFileSize:
         #Return a 200 OK, Make a db entry
         temp=json.dumps(body)
@@ -88,5 +89,5 @@ def publish():
     else:
         #Return a 500 Internal Error, move on
         statusCode = 500
-    # dataDict = json.loads(data)
+
     return Response({"id":id}, mimetype='application/json', status=statusCode)
