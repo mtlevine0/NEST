@@ -21,7 +21,7 @@ def fetch(uid):
     
             # increment the self destruct time / handle deleting entry if 0
             incrementSD(doc)
-            result = jsonify(doc)
+            result = render_template('access.html', doc=doc)
     
     else: 
         result = render_template('404.html')
