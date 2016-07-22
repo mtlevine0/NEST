@@ -9,3 +9,11 @@ couch.resource.credentials = (properties.dbConnectUser, properties.dbConnectPass
 
 # Connect to DB to retrieve list of expired Eggs
 db = couch[properties.dbConnectName]
+
+# Fetch DB Doc
+def getDBEntry(uid):
+    doc = 0
+    for id in db:
+        if id == uid:
+            doc = db.get(id)
+    return doc
