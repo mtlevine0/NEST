@@ -2,7 +2,7 @@
     "dbName": "nw-nest-db-test",
     "dbUser": "6bb93b4a-b32d-4fa9-ac34-81144d9bbb69-bluemix",
     "dbPassword": "2d3848dd07d0ec8a0ae80672213d653b132861b4ffe5941fcf31cb50f0234a29",
-    "maxFileSize": 600,
+    "maxFileSize": 3000,
     "gmailAccount": "2016nationwidenest@gmail.com",
     "gmailPassword": "P0GMailSucks",
     "emailUploadSubject": "New Paste Created",

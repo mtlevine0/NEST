@@ -49,7 +49,7 @@ def publish():
         except:
             statusCode = 500
         statusCode = 200
-        send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
+        # send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
     elif contentLength > properties.maxFileSize:
         #Return a 413 Payload to large, move on
         statusCode = 413
