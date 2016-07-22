@@ -50,7 +50,7 @@ def loadBody(requestData):
 # Calculate the expiration Time
 def calculateExpirationTime(creationTime,minutesAdd):
     try:
-        expirationTime = creationTime + timedelta(minutes=minutesAdd)
+        expirationTime = creationTime + timedelta(minutes=int(minutesAdd))  
     except:
         expirationTime = creationTime + timedelta(minutes=15)
     
@@ -90,4 +90,4 @@ def publish():
         #Return a 500 Internal Error, move on
         statusCode = 500
 
-    return Response({"id":id}, mimetype='application/json', status=statusCode)
+    return Response('{"id":"'+id+'"}', mimetype='application/json', status=statusCode)
