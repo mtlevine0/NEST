@@ -20,17 +20,17 @@ def removeEgg(uid, urlAdminPassword):
         print "There was an issue setting up the variables for Document ID: %s" % uid
     
     if (docAdminPassword != urlAdminPassword):
-        result = render_template('error.html',"403 Access Forbidden")
+        result = render_template('error.html',message="403 Access Forbidden")
         
     elif (docAdminPassword == urlAdminPassword):
         try:
             if (docFileName > "" or docType == "file"):
                 fileDeleteSuccess = deleteOSFile(docFileName)
-                result =  render_template('error.html',deleteDBDoc(doc,fileDeleteSuccess))
+                result =  render_template('error.html',message=deleteDBDoc(doc,fileDeleteSuccess))
             else:
-                result = render_template('error.html',deleteDBDoc(doc,True))
+                result = render_template('error.html',message=deleteDBDoc(doc,True))
         except:
-            result = render_template('error.html',"500 Internal Server Error - A delete failed somplace")
+            result = render_template('error.html',message="500 Internal Server Error - A delete failed somplace")
             print "There was an exception processing the deletion of the Invalid Type Document ID: %s" % uid
     
     return result
