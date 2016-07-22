@@ -15,9 +15,13 @@ def publish():
     
     if content_length <= properties.maxFileSize:
         #Make a db entry
-    else:
+        return Response(body, mimetype='application/json')
+    elif content_length > properties.maxFileSize:
         #Return a 413 error, Payload to large
-        
+        return Response("error 413")
+    else:
+        #
+        return Response(body, mimetype='application/json')
     # dataDict = json.loads(data)
     print body
     return Response(body, mimetype='application/json')
