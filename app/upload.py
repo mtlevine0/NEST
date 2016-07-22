@@ -1,6 +1,7 @@
 from flask import jsonify, Blueprint, request, Response
 import database
 import properties
+import json
 
 upload_api = Blueprint('upload_api', __name__)
 
@@ -10,18 +11,24 @@ def upload():
 
 @upload_api.route('/publish', methods=['POST'])
 def publish():
-    content_length = request.headers.get('content-length')
+    contentLength = int(request.headers.get('content-length'))
     body = request.data
-    
-    if content_length <= properties.maxFileSize:
-        #Make a db entry
-        return Response(body, mimetype='application/json')
-    elif content_length > properties.maxFileSize:
-        #Return a 413 error, Payload to large
-        return Response("error 413")
+    #validate json
+    print contentLength, properties.maxFileSize
+    if contentLength < properties.maxFileSize:
+        #Return a 200 OK, Make a db entry
+        doc = json.loads(body)
+        try:
+            database.db.create(doc)
+        except:
+            statusCode = 500
+        statusCode = 200
+    elif contentLength > properties.maxFileSize:
+        #Return a 413 Payload to large, move on
+        statusCode = 413
     else:
-        #
-        return Response(body, mimetype='application/json')
+        #Return a 500 Internal Error, move on
+        statusCode = 500
     # dataDict = json.loads(data)
     print body
-    return Response(body, mimetype='application/json')
+    return Response(body, mimetype='application/json', status=statusCode)
