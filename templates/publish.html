@@ -13,7 +13,8 @@
 
     <form id="myform">
         Text: <input type="text" id="text" name="text" value="enter text here" class="textboxclass"/><br>
-        Email: <input id="email" name="email" /><br>
+        Email: <input id="email" name="email" /><br>        
+        Expiration Date: <input id="expiration_date" name="expiration_date" /><br>
         Self Destruct Count<input id="self_destruct_count" name="self_destruct_count" /><br>
         Password <input id="password" name="password" type="password"><br>
         <input id="submit" type="button" name="submit" value="submit"><br>
@@ -47,6 +48,7 @@
              var data = {
                  text: $("#text").val(),
                  email: $("#email").val(),
+                 expiration_date: $("#expiration_date").val(),
                  self_destruct_count: $("#self_destruct_count").val(),
                  password: $("#password").val()
              };
