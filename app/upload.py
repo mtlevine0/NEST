@@ -58,4 +58,4 @@ def publish():
         statusCode = 500
     # dataDict = json.loads(data)
     print body
-    return Response(body, mimetype='application/json', status=statusCode)
+    return Response({"id":id}, mimetype='application/json', status=statusCode)
