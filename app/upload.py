@@ -13,8 +13,11 @@ def publish():
     content_length = request.headers.get('content-length')
     body = request.data
     
-    
-    
+    if content_length <= properties.maxFileSize:
+        #Make a db entry
+    else:
+        #Return a 413 error, Payload to large
+        
     # dataDict = json.loads(data)
     print body
     return Response(body, mimetype='application/json')
