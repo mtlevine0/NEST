@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, render_template
 import database
 
 access_api = Blueprint('access_api', __name__)
@@ -15,7 +15,7 @@ def fetch(uid):
         # If password protected 
         if doc['password'] != '':
             #could set template=autorization_page instead of returning
-            return 'authorization page'
+            return render_template('auth.html')
         
         # If it's a file
         #if doc['type'] == 'file':
@@ -37,14 +37,14 @@ def fetch(uid):
         result = jsonify(doc)
     
     else: 
-        result = '404'
+        result = render_template('404.html')
     #TODO: populate the template 
     
     return result
     
     
-@access_api.route('/<uid>/<auth>', methods=['GET'])
-def authorization(uid, auth):
+@access_api.route('/<uid>', methods=['POST'])
+def authorization(uid):
     
     data = {}
     for i, id in enumerate(database.db):
