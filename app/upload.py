@@ -82,7 +82,10 @@ def publish():
             print "DB push exception"
             statusCode = 500
         statusCode = 200
-        send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
+        try:
+            send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
+        except:
+            pass
     elif contentLength > properties.maxFileSize:
         #Return a 413 Payload to large, move on
         statusCode = 413
