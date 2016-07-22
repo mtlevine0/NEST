@@ -21,9 +21,39 @@ oscontainer_name = properties["oscontainer_name"]
 
 #Check if db doc is a file upload
 def docTypeCheck(document):
-    if (document['type'].lower() == "file"):
-        return True
+    print "docTypeCheck for ID: %s" % id
+    #Try to set the docType Variable
+    try:
+        docType = document['type'].lower()
+    except:
+        print "An exception occurred checking the docType for Document ID: %s" % id
+        return "invalid"
+        
+    if (docType == "file"):
+        return "file"
+    elif (docType == "text"):
+        return "text"
     else:
+        return "invalid"
+
+#Delete Document from the DB
+def deleteDBDoc(document,FileRemovalStatus):
+    if(FileRemovalStatus == True):
+        try:
+            db.delete(doc)
+            print "We have successfully deleted document with ID: %s" % id
+        except:
+            print "Something went wrong trying to delete the DB document associated with document ID: %s" % id
+    else:
+        return
+        
+def deleteOSFile(fileName):
+    try:
+        osConnection.delete_object(oscontainer_name, fileName)
+        print "We have successfully deleted the file associated with document ID: %s" % id
+        return True
+    except:
+        print "Something went wrong trying to delete the File associated with document ID: %s" % id
         return False
 
 # Set up and establish DB Connection
@@ -45,41 +75,35 @@ for id in db:
     #Try to convert the expiration time to a datetime variable
     try:
         expirationTime = datetime.strptime(doc['expiration_time'], '%Y-%m-%d %H:%M:%S.%f')
+        docFileName = str(doc['filename'])
     except:
         #Handle invalid formatted expiration times based on their document "Type"
-        print "%s: Has an Invalid Format and is being handled now" % id
-        if (docTypeCheck(doc) == True):
-            try:
-                osConnection.delete_object(oscontainer_name, str(doc['filename']))
-                print "We have successfully deleted the file associated with document ID: %s" % id
-            except:
-                print "Something went wrong trying to delete the File associated with document ID: %s" % id
-                continue
-        try:
-            db.delete(doc)
-            print "We have successfully deleted document with ID: %s" % id
-        except:
-            print "Something went wrong trying to delete the DB document associated with document ID: %s" % id
-            
-        continue
+        print "Document %s: Has an Invalid Format and is being handled now" % id
+        if (docTypeCheck(doc) == "file"):
+            fileDeleteStatus = deleteOSFile(docFileName)
+            deleteDBDoc(doc,fileDeleteStatus)
+        else:
+            continue
     
     #Remove expired Eggs that have files associated with them
-    if (expirationTime < datetime.utcnow() and docTypeCheck(doc) == True):
+    if (expirationTime < datetime.utcnow() and docTypeCheck(doc) == "file"):
         ## Remove File from O.S. and delete DB doc
-        try:
-            osConnection.delete_object(oscontainer_name, str(doc['filename']))
-            print "We have successfully deleted the file associated with document ID: %s" % id
-            db.delete(doc)
-            print "We have successfully deleted document with ID: %s" % id
-        except:
-            print "Something went wrong trying to delete the DB document or File associated with document ID: %s" % id
+        fileDeleteStatus = deleteOSFile(docFileName)
+        deleteDBDoc(doc,fileDeleteStatus)
     
     #Remove expired Eggs that do not have files associated with them
-    elif (expirationTime < datetime.utcnow() and docTypeCheck(doc) == False):
+    elif (expirationTime < datetime.utcnow() and docTypeCheck(doc) == "text"):
+        deleteDBDoc(doc,True)
+           
+    #Remove Eggs that are of an invalid type
+    else:
         try:
-            db.delete(doc)
-            print "We have successfully deleted document with ID: %s" % id
+            if (docFileName > ""):
+                fileDeleteStatus = deleteOSFile(docFileName)
+                deleteDBDoc(doc,fileDeleteStatus)
+            else:
+                deleteDBDoc(doc,True)
         except:
-           print "There was an exception deleting the document with ID: %s" % id
+            print "There was an exception processing the deletion of the Invalid Type Document ID: %s" % id
            
 osConnection.close()

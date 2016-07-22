@@ -17,17 +17,17 @@ def send_email(user, pwd, recipient, subject, body):
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.ehlo()
-        server.starttls()
-        smtpserver.ehlo()
-        server.login(gmail_user, gmail_pwd)
-        server.sendmail(FROM, TO, message)
-        server.close()
-        print 'successfully sent the mail'
-    except:
-        print "failed to send mail"
+    # try:
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(gmail_user, gmail_pwd)
+    server.sendmail(FROM, TO, message)
+    server.close()
+    # print 'successfully sent the mail'
+    # except:
+    #     print "failed to send mail"
 
 @upload_api.route('/', methods=['GET'])
 def upload():
@@ -44,12 +44,12 @@ def publish():
         #Return a 200 OK, Make a db entry
         doc = json.loads(body)
         try:
-            entry = database.db.create(doc)
-            print entry
+            id = database.db.create(doc)
+            print id
         except:
             statusCode = 500
         statusCode = 200
-        send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created")
+        send_email(properties.gmailAccount, properties.gmailPassword, email, properties.emailUploadSubject, "new paste has been created " + id)
     elif contentLength > properties.maxFileSize:
         #Return a 413 Payload to large, move on
         statusCode = 413
