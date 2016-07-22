@@ -75,7 +75,7 @@ for id in db:
     doc = db.get(id)
     #Try to convert the expiration time to a datetime variable
     try:
-        expirationTime = datetime.strptime(doc['expiration_time'], '%Y-%m-%d %H:%M:%S.%f')
+        expirationTime = datetime.strptime(doc['expiration_date'], '%Y-%m-%d %H:%M:%S.%f')
         docFileName = str(doc['filename'])
     except:
         #Handle invalid formatted expiration times based on their document "Type"
