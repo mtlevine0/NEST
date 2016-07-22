@@ -7,3 +7,4 @@ with open('NESTProperties.json') as properties_file:
 dbConnectName = data["dbName"]
 dbConnectUser = data["dbUser"]
 dbConnectPassword = data["dbPassword"]
+maxFileSize = data["maxFileSize"]
