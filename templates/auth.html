@@ -9,5 +9,8 @@
             <input type="hidden" id="uid" name="uid" value="{{ uid }}">
             <input type="submit" />
       </form>
+      {% if message %}
+      <p>{{ message }}</p>
+      {% endif %}
     </body>
 </html>

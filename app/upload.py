@@ -75,6 +75,8 @@ def publish():
         temp=json.dumps(body)
         doc=json.loads(temp)
 
+        #TODO: handle bad requests such as text in a numeric field
+
         try:
             id = database.db.create(doc)
             print "ID: %s" % id

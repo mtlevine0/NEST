@@ -39,9 +39,12 @@ def authorization(uid):
     password = request.form['pass_input']
     form = AuthForm()
     
+    #TODO: Access lockout
+    
     if doc['password'] != password: 
         #TODO: add error parameter
-        result = render_template('auth.html', form=form, uid=uid)
+        result = render_template('auth.html', form=form, uid=uid, 
+                            message='Ah, Ah, Ah! You didn\'t say the magic word!')
     else:
         result = render_template('access.html', paste=doc['text'], 
                                                     sdCounter=incrementSD(doc))

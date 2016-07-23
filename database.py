@@ -19,7 +19,9 @@ def getDBEntry(uid):
     return doc
     
 def updateDBEntry(doc):
+    #need to error handle 
     return db.save(doc)
     
 def deleteDBEntry(doc):
+    #need to error handle
     return db.delete(doc)
