@@ -17,3 +17,9 @@ def getDBEntry(uid):
         if id == uid:
             doc = db.get(id)
     return doc
+    
+def updateDBEntry(doc):
+    return db.save(doc)
+    
+def deleteDBEntry(doc):
+    return db.delete(doc)

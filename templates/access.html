@@ -5,7 +5,9 @@
     <title>NEST</title>
   </head>
   <body>
-      <p>Text: {{ doc.text }}</p>
-      <p>Views Remaining: {{ doc.self_destruct_count }}</p>
+      <p>Text: {{ paste }}</p>
+      {% if sdCounter %}
+      <p>Views Remaining: {{ sdCounter }}</p>
+      {% endif %}
   </body>
 </html>
