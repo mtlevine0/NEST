@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint, render_template, request
+from flask import Blueprint, render_template, request
 import database
 from .forms import AuthForm
 
