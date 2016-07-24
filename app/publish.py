@@ -51,4 +51,4 @@ def publish():
 
     Response('{"id":"'+id+'"}', mimetype='application/json', status=statusCode)
     
-    return redirect("/" + id, code=302)
+    return redirect("/" + id, code=303)

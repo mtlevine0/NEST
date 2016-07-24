@@ -9,6 +9,6 @@ class AuthForm(Form):
 class PublishForm(Form):
     text = TextAreaField('text', validators=[DataRequired()])
     email = StringField('email')
-    expiration_time = IntegerField('expiration_time')
+    expiration_time = StringField('expiration_time')
     sdCounter = StringField('sdCounter')
     password = StringField('password')
