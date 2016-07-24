@@ -13,21 +13,24 @@ def fetch(uid):
     # If there, do stuff
     if doc != 0:
         # If password protected 
-        if doc['password'] == '':
+        if doc['recently_created'] == True:
             #TODO: Get file
-            # increment the self destruct time / handle deleting entry if 0
-            if doc['self_destruct_count'] != '':
-                result = render_template('access.html', paste=doc['text'], 
+            doc['recently_created'] = False
+            database.updateDBEntry(doc)
+            result = render_template('access.html', paste=doc['text'], 
+                                                    sdCounter=doc['sdCounter'])
+                                                    
+        elif doc['password'] == '':
+            result = render_template('access.html', paste=doc['text'], 
                                         sdCounter=accessHelper.incrementSD(doc))
-            else: 
-                result = render_template('access.html', paste=doc['text'])
-                
+                                        
         else:
             form = AuthForm()
             result = render_template('auth.html', form=form, uid=uid)
+                
     else: 
         result = render_template('404.html')
-    #TODO: populate the template 
+ 
     
     return result
     
@@ -50,7 +53,7 @@ def authorization(uid):
         else:
             result = render_template('access.html', paste=doc['text'], 
                                         sdCounter=accessHelper.incrementSD(doc))
-    
+
     else: 
         result = render_template('404.html')
         

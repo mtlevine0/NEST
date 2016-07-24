@@ -1,23 +1,21 @@
-from flask import jsonify, Blueprint, request, Response, render_template
+from flask import Blueprint, request, Response, render_template
+from datetime import datetime
+from datetime import timedelta
 import database
 import properties
 import json
-import smtplib
-from datetime import datetime
-from datetime import timedelta
-import uuid
 import publishHelper
 
 
 upload_api = Blueprint('upload_api', __name__)
 
 
-@upload_api.route('/', methods=['GET'])
+@upload_api.route('/upload', methods=['GET'])
 def upload():
-    return render_template('publish.html')
+    return render_template('upload.html')
 
 
-@upload_api.route('/publish', methods=['POST'])
+@upload_api.route('/upload', methods=['POST'])
 def publish():
     contentLength = int(request.headers.get('content-length'))
     body = publishHelper.loadBody(request.data)

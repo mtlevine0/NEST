@@ -1,6 +1,4 @@
-from flask import jsonify
 import database
-import properties
 import json
 import smtplib
 from datetime import datetime
@@ -38,11 +36,13 @@ def loadBody(requestData):
     createdDate = datetime.utcnow()
     data = json.loads(requestData)
     
-    data['expiration_date'] = calculateExpirationTime(createdDate, data['expiration_time'])
+    data['expiration_date'] = calculateExpirationTime(createdDate, 
+                                                        data['expiration_time'])
     data['type'] = "text"
     data['filename'] = ""
     data['created_date'] = str(createdDate)
     data['admin_password'] = str(uuid.uuid4())
+    data['recently_created'] = True
     
     return data
     
