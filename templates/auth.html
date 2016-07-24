@@ -1,16 +1,13 @@
-<html>
-  <head>
-    <title>NEST</title>
-  </head>
-    <body>
-      <h1>Authorization</h1>
-      <form action="/{{ uid }}" method="post" name="auth">
-            <input id="pass_input" name="pass_input" type="password" value="">
-            <input type="hidden" id="uid" name="uid" value="{{ uid }}">
-            <input type="submit" />
-      </form>
-      {% if message %}
-      <p>{{ message }}</p>
-      {% endif %}
-    </body>
-</html>
+ {% extends "base.html" %}
+ 
+ {% block content %}
+    <h1>Authorization</h1>
+    <form action="/{{ uid }}" method="post" name="auth">
+      <input id="pass_input" name="pass_input" type="password" value="">
+      <input type="hidden" id="uid" name="uid" value="{{ uid }}">
+      <input type="submit" value="Submit"/>
+    </form>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+  {% endblock %}
