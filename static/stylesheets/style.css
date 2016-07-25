@@ -21,6 +21,9 @@
 
 /* Add a dark background color with a little bit see-through */ 
 .navbar {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),
+                0 2px 10px 0 rgba(0,0,0,0.12)
+                !important;
     margin-bottom: 0;
     background-color: #2d2d30;
     border: 0;
@@ -64,10 +67,4 @@
 /* On hover, the dropdown links will turn red */
 .dropdown-menu li a:hover {
     background-color: red !important;
-}
-
-.fixed-panel {
-  min-height: 20;
-  max-height: 20;
-  overflow-y: scroll;
 }
