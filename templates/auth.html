@@ -1,13 +1,22 @@
  {% extends "base.html" %}
  
  {% block content %}
-    <h1>Authorization</h1>
-    <form action="/{{ uid }}" method="post" name="auth">
-      <input id="pass_input" name="pass_input" type="password" value="">
-      <input type="hidden" id="uid" name="uid" value="{{ uid }}">
-      <input type="submit" value="Submit"/>
-    </form>
-    {% if message %}
-    <p>{{ message }}</p>
+ 
+ <div class="container">
+ 
+   {% if message %}
+    <div class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong> {{ message }}
+    </div>
     {% endif %}
+    
+    <h1>Authorization</h1>
+      <form action="/{{ uid }}" method="post" name="auth">
+        <input id="pass_input" name="pass_input" type="password" value="">
+        <input type="hidden" id="uid" name="uid" value="{{ uid }}"> <br>
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+      </form>
+    
+  </div>
   {% endblock %}

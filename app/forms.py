@@ -1,14 +1,16 @@
 from flask_wtf import Form
-from wtforms import StringField, TextAreaField, IntegerField
+from wtforms import StringField, TextAreaField, IntegerField, SelectField, PasswordField
 from wtforms.validators import DataRequired
 
 class AuthForm(Form):
-    pass_input = StringField('pass_input', validators=[DataRequired()])
+    pass_input = PasswordField('pass_input', validators=[DataRequired()])
     
 
 class PublishForm(Form):
+    myChoices = [15, 30, 45, 60]
+    
     text = TextAreaField('text', validators=[DataRequired()])
     email = StringField('email')
-    expiration_time = StringField('expiration_time')
+    expiration_time = SelectField('expiration_time', choices=[(f, f) for f in myChoices])
     sdCounter = StringField('sdCounter')
-    password = StringField('password')
+    password = PasswordField('password')
