@@ -1,8 +1,17 @@
   {% extends "base.html" %}
  
   {% block content %}
-      <p>Text: {{ paste }}</p>
-      {% if sdCounter %}
-      <p>Views Remaining: {{ sdCounter }}</p>
-      {% endif %}
+  
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-body" onload="replaceNewLine">
+        <pre>{{ content }}</pre>
+      </div>
+      <div class="panel-footer" align="right">
+        {% if sdCounter %}
+          Views Remaining: {{ sdCounter }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
   {% endblock %}

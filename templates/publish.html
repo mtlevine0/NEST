@@ -2,24 +2,22 @@
  
  {% block content %}
  <div class="container">
-   <form role="form" action="/" method="post" name="publish">
-    {{ form.hidden_tag() }}
-    <div class="form-group"></div>
-      {{ form.text(class='form-control', rows='20') }} <br>
-      <div class="panel panel-default">
-        <div class="panel-heading">Optional Settings</div>
+    <form role="form" action="/" method="post" name="publish">
+      {{ form.hidden_tag() }}
+      <div class="form-group"></div>
+        {{ form.text(class='form-control', rows='20') }} <br>
+        <div class="panel panel-default">
+          <div class="panel-heading">Optional Settings</div>
           <div class="panel-body">
-            Email: {{ form.email(class='form-control', id='usr') }} 
-            Expiration Time (min): {{ form.expiration_time(class='form-control', id='sel1') }}
-            Views: {{ form.sdCounter( class='form-control') }}
-            Password: {{ form.password(class='form-control', id='pwd') }} <br>
-            <input type="submit" value="Create New"></p>
+              Email: {{ form.email(class='form-control', id='usr') }} 
+              Expiration Time (min): {{ form.expiration_time(class='form-control', id='sel1') }}
+              Views: {{ form.sdCounter( class='form-control') }}
+              Password: {{ form.password(class='form-control', id='pwd') }} <br>
+              <input type="submit" value="Create New"></p>
           </div>
         </div>
       </div>
-    </div>
-    <p>
-  </form>
+    </form>
   </div>
   {% endblock %}
   
