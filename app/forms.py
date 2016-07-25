@@ -3,7 +3,7 @@ from wtforms import StringField, TextAreaField, IntegerField, SelectField, Passw
 from wtforms.validators import DataRequired
 
 class AuthForm(Form):
-    pass_input = PasswordField('pass_input', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
     
 
 class PublishForm(Form):

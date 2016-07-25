@@ -41,7 +41,7 @@ def authorization(uid):
     doc = database.getDBEntry(uid)
     
     if doc != 0:
-        password = request.form['pass_input']
+        password = request.form['password']
         form = AuthForm()
     
         #TODO: Access lockout
