@@ -6,6 +6,7 @@ import properties
 import json
 import publishHelper
 from .forms import PublishForm
+import os
 
 
 publish_api = Blueprint('publish_api', __name__)
@@ -36,9 +37,10 @@ def publish():
         statusCode = 200
         
         try:
+            hostnameURL = os.environ['C9_HOSTNAME'] + '/' + id  if os.environ['C9_HOSTNAME'] else id
             publishHelper.send_email(properties.gmailAccount,
             properties.gmailPassword, doc['email'], 
-            properties.emailUploadSubject, "new paste has been created " + id)
+            properties.emailUploadSubject, "New NEST paste has been created: " + hostnameURL)
         except:
             pass
         
