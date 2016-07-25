@@ -66,3 +66,8 @@
     background-color: red !important;
 }
 
+.fixed-panel {
+  min-height: 20;
+  max-height: 20;
+  overflow-y: scroll;
+}
