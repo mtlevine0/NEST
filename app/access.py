@@ -17,11 +17,11 @@ def fetch(uid):
             #TODO: Get file
             doc['recently_created'] = False
             database.updateDBEntry(doc)
-            result = render_template('access.html', paste=doc['text'], 
+            result = render_template('access.html', content=doc['text'], 
                                                     sdCounter=doc['sdCounter'])
                                                     
         elif doc['password'] == '':
-            result = render_template('access.html', paste=doc['text'], 
+            result = render_template('access.html', content=doc['text'], 
                                         sdCounter=accessHelper.incrementSD(doc))
                                         
         else:
@@ -51,7 +51,7 @@ def authorization(uid):
             result = render_template('auth.html', form=form, uid=uid, 
                         message='Ah, Ah, Ah! You didn\'t say the magic word!')
         else:
-            result = render_template('access.html', paste=doc['text'], 
+            result = render_template('access.html', content=doc['text'], 
                                         sdCounter=accessHelper.incrementSD(doc))
 
     else: 
